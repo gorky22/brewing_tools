@@ -37,8 +37,8 @@ class BeerRecipe:
             useful for adjusting ingredient quantities based on kettle size.
 
             Args:
-                resulting_beer_volume (float): Volume of the final beer in the original recipe.
-                desired_resulting_beer_volume (float): Desired final beer volume, based on the available kettle's maximum volume.
+                resulting_beer_volume (float, optional): Volume of the final beer in the original recipe.
+                desired_resulting_beer_volume (float, optional): Desired final beer volume, based on the available kettle's maximum volume.
 
             Returns:
                 float: Ratio of the original beer volume to the desired beer volume.
@@ -54,16 +54,38 @@ class BeerRecipe:
 
         return desired_resulting_beer_volume / resulting_beer_volume
 
+    def print_ingredients(self, calculate_with_ratio: bool = False) -> None:
+        """
+            Prints the ingredients needed for the recipe.
+
+            Args:
+                calculate_with_ratio (bool, optional): If True, prints ingredients recalculated with the desired ratio. Defaults to False.
+        """
+
+        ratio = 1.0
+
+        if calculate_with_ratio:
+            ratio = self.get_ratio()
+
+        print(f'{"="*20} Ingredients {"="*20}')
+        for ingredient in self.ingredients:
+
+            print(f'{ingredient['name']}: {ingredient['amount'] * ratio}g')
+
 
 # Example of usage
 try:
     recipe = BeerRecipe(
-        ingredients=[{"name": "Malt", "amount": "2kg"},
-                     {"name": "Hops", "amount": "50g"}],
+        ingredients=[{"name": "Pilzner Malt", "type": "Malt", "amount": 2000},
+                     {"name": "Citra", "type": "Hop", "amount": 50}],
         resulting_beer_volume=20.0,
         sparging_water_volume=10.0,
-        desired_resulting_beer_volume=20.0
+        desired_resulting_beer_volume=10.0
     )
     print("Recipe created successfully!")
+
+    print(recipe.get_ratio())
+
+    recipe.print_ingredients()
 except (TypeError, ValueError) as e:
     print(f"Error creating recipe: {e}")

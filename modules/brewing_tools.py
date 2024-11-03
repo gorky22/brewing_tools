@@ -32,14 +32,16 @@ class BeerRecipe:
         self.desired_resulting_beer_volume = desired_resulting_beer_volume
 
     def get_ratio(self, resulting_beer_volume: float = 0.0, desired_resulting_beer_volume: float = 0.0) -> float:
-        """_summary_
+        """
+            Calculates the ratio of the original beer volume to the desired beer volume, 
+            useful for adjusting ingredient quantities based on kettle size.
 
-        Args:
-            resulting_beer_volume (float, optional): _description_. Defaults to None.
-            desired_resulting_beer_volume (float, optional): _description_. Defaults to None.
+            Args:
+                resulting_beer_volume (float): Volume of the final beer in the original recipe.
+                desired_resulting_beer_volume (float): Desired final beer volume, based on the available kettle's maximum volume.
 
-        Returns:
-            float: _description_
+            Returns:
+                float: Ratio of the original beer volume to the desired beer volume.
         """
 
         if not isinstance(resulting_beer_volume, float) or not isinstance(desired_resulting_beer_volume, float):
